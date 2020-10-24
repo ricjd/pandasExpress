@@ -1,0 +1,35 @@
+{
+  "outputs": [
+    {
+      "type": "map",
+      "out_column": "process",
+      "in_column": "type_code",
+      "map":   {
+        "55": "ach",
+        "65": "card"
+      },
+      "default": "other"
+    },
+    {
+      "type": "math",
+      "out_column": "amount",
+      "in_value_1": "amount",
+      "in_value_2": 100,
+      "operator": "*"
+    },
+    {
+      "type": "int",
+      "out_column": "amount",
+      "in_column": "amount"
+    },
+    {
+      "type": "rename",
+      "out_column": "external_id",
+      "in_column": "id"
+    },
+    {
+      "type": "meta",
+      "columns": ["type_code","currency"]
+    }
+  ]
+}
