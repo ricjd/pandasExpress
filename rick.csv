@@ -1,4 +1,4 @@
 id,type_code,amount,description,account_number,currency
-1,55,100.00,'ACH transfer',123456,USD
+1,55,100.50,'ACH transfer',123456,USD
 2,65,-50,'PANDA EXPRESS #1234',98765,USD
-2,75,-50,'PANDA EXPRESS #1234',98765,USD
+2,75,-40,'Unknown',98765,USD

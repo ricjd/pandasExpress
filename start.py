@@ -4,14 +4,14 @@ from collections import defaultdict
 import json
 
 def map(df, in_column, out_column, map, default):
-  map = defaultdict(
+  df[in_column] = df[in_column].apply(str)
+  this_map = defaultdict(
     lambda: default,
     map
   )
-  df[out_column] = df[in_column].map(map)
+  df[out_column] = df[in_column].map(this_map)
 
 def math(df, in_value_1, in_value_2, out_column, operator):
-  print(type(in_value_1), type(in_value_2))
   if (type(in_value_1) == str):
     in_value_1 = df[in_value_1]
   if (type(in_value_2) == str):
@@ -36,6 +36,11 @@ def convert_int(df, in_column, out_column):
 def meta(df, columns):
   df['meta'] = df[columns].apply(lambda x: x.to_json(), axis=1)
 
+def rename(df, out_column, in_column):
+  renameDict = dict()
+  renameDict[in_column] = out_column
+  df.rename(columns=renameDict, inplace=True)
+
 with open('./config.json') as f:
   config = json.load(f)
 
@@ -52,7 +57,7 @@ for output in config['outputs']:
   elif (output['type'] == 'int'):
     convert_int(df, output['in_column'], output['out_column'])
   elif (output['type'] == 'rename'):
-    df[output['out_column']] = df[output['in_column']]
+    rename(df, output['out_column'], output['in_column'])
   elif (output['type'] == 'meta'):
     meta(df, output['columns'])
 
